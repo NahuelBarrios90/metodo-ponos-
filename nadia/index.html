@@ -154,7 +154,7 @@ const QUOTES=[
 let reward=null;
 
 // ===== Estado (se guarda en el celular de la alumna) =====
-const KEY="ponos:"+PLAN.id+":v2";
+const KEY="ponos:"+PLAN.id+":v3";
 function blank(){return {open:null,feel:"",comment:"",am:{v:"",r:"",kg:""},ex:PLAN.bloques.map(b=>b.items.map(it=>Array.from({length:it.s},()=>({kg:"",reps:b.carga?String(it.reps):"",done:false}))))}}
 let ST,HIST={};
 try{ST=JSON.parse(localStorage.getItem(KEY))}catch(e){}
