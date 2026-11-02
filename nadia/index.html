@@ -1,0 +1,291 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"></head><body>
+<title>Method Ponos · Nadia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Yellowtail&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: una columna tipo app, identidad Method Ponos (verde bosque + rosa, damero arriba y abajo) */
+:root{
+  --green:#0c3a24; --green-2:#124a2f; --green-3:#1a5b3b;
+  --pink:#ffb3ae; --pink-ink:#0c3a24; --paper:#f1efe9; --ink:#10261a;
+  --muted:#a9c2b3; --ok:#7ad39a;
+  --f-logo:"Anton", Impact, "Arial Black", sans-serif;
+  --f-script:"Yellowtail", "Brush Script MT", cursive;
+  --f-label:"Bebas Neue", "Arial Narrow", sans-serif;
+  --f-body:"Figtree", system-ui, -apple-system, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--green);color:var(--paper);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+button:focus-visible,input:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.checker{height:44px;background-color:var(--green);
+  background-image:linear-gradient(45deg,var(--pink) 25%,transparent 25%,transparent 75%,var(--pink) 75%),linear-gradient(45deg,var(--pink) 25%,transparent 25%,transparent 75%,var(--pink) 75%);
+  background-size:44px 44px;background-position:0 0,22px 22px}
+.wrap{max-width:480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px;display:flex;flex-direction:column;gap:22px}
+.logo{text-align:center;line-height:.8;padding-top:6px}
+.logo .s{font-family:var(--f-script);color:var(--pink);font-size:64px;display:block;transform:rotate(-4deg);margin-bottom:-14px;position:relative;z-index:1;text-shadow:3px 3px 0 var(--green)}
+.logo .b{font-family:var(--f-logo);color:var(--pink);font-size:96px;letter-spacing:.01em;display:block}
+.tag{display:flex;justify-content:space-between;font-family:var(--f-label);color:var(--pink);font-size:20px;line-height:1.05;letter-spacing:.03em}
+.tag span:last-child{text-align:right}
+.day{font-family:var(--f-label);font-size:26px;letter-spacing:.04em;color:var(--pink);text-align:center;border-top:1px solid var(--green-3);border-bottom:1px solid var(--green-3);padding:8px 0}
+.summary{display:flex;align-items:center;gap:14px;background:var(--green-2);border-radius:18px;padding:14px}
+.summary svg{width:58px;height:58px;flex:none}
+.summary b{font-family:var(--f-label);font-size:24px;letter-spacing:.03em;display:block;line-height:1}
+.summary p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.block{display:flex;flex-direction:column;gap:10px}
+.block h2{margin:0;font-family:var(--f-label);font-weight:400;font-size:28px;letter-spacing:.05em;color:var(--pink);display:flex;align-items:baseline;gap:10px}
+.block h2 small{font-family:var(--f-body);font-size:12px;letter-spacing:.02em;color:var(--muted)}
+.ex{background:var(--paper);color:var(--ink);border-radius:14px;overflow:hidden}
+.ex.done{background:#d9eadf}
+.ex-top{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;width:100%;text-align:left}
+.ex-top .tick{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;flex:none;opacity:.35}
+.ex.done .ex-top .tick{background:var(--green);border-color:var(--green);color:var(--pink);opacity:1}
+.ex-top .nm{flex:1;min-width:0}
+.ex-top .nm b{font-family:var(--f-label);font-weight:400;font-size:22px;letter-spacing:.02em;line-height:1.05;display:block}
+.ex-top .nm span{font-size:13px;color:#3d5a49;font-weight:600}
+.ex-top .chev{flex:none;transition:transform .2s}
+.ex.open .ex-top .chev{transform:rotate(180deg)}
+.ex-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px}
+.video{display:flex;align-items:center;gap:10px;background:var(--green);color:var(--pink);border-radius:999px;padding:10px 16px;text-decoration:none;font-weight:600;font-size:14px;align-self:flex-start}
+.video svg{flex:none}
+.last{font-size:13px;color:#3d5a49}
+.last b{color:var(--ink)}
+.sets{display:flex;flex-direction:column;gap:8px}
+.set{display:grid;grid-template-columns:30px 1fr 1fr 48px;gap:8px;align-items:center}
+.set.simple{grid-template-columns:1fr 48px}
+.set .n{font-family:var(--f-label);font-size:20px;text-align:center;color:#3d5a49}
+.set .lbl{font-weight:600;font-size:14px}
+.field{position:relative}
+.field input{width:100%;font-family:var(--f-label);font-size:24px;letter-spacing:.02em;text-align:center;color:var(--ink);background:#fff;border:1.5px solid #cfd8d1;border-radius:999px;padding:6px 30px 4px 10px;font-variant-numeric:tabular-nums}
+.field span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#6b7f72;pointer-events:none}
+.chk{width:48px;height:48px;border-radius:50%;background:#fff;border:1.5px solid #cfd8d1;display:grid;place-items:center;color:#9aa9a0}
+.chk[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--pink)}
+.hint{font-size:12px;color:#6b7f72;margin:0}
+.finish{background:var(--pink);color:var(--pink-ink);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.finish h2{margin:0;font-family:var(--f-label);font-weight:400;font-size:30px;letter-spacing:.04em;line-height:1}
+.finish p{margin:0;font-size:14px}
+.feel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.feel button{border:1.5px solid var(--pink-ink);border-radius:12px;padding:10px 4px;font-weight:700;font-size:14px}
+.feel button[aria-pressed="true"]{background:var(--pink-ink);color:var(--pink)}
+textarea{width:100%;font:inherit;color:var(--ink);background:#fff3f2;border:1.5px solid var(--pink-ink);border-radius:12px;padding:10px 12px;resize:vertical}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:14px 18px;font-weight:700;text-decoration:none;text-align:center}
+.btn-dark{background:var(--pink-ink);color:var(--pink)}
+.btn-line{border:1.5px solid var(--pink-ink);color:var(--pink-ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.quote{font-family:var(--f-label);font-size:22px;letter-spacing:.03em;line-height:1.1;color:var(--pink);text-align:center;margin:0}
+.quote cite{display:block;font-family:var(--f-body);font-size:12px;color:var(--muted);letter-spacing:0;margin-top:6px;font-style:normal}
+.foot{font-size:12px;color:var(--muted);text-align:center}
+.foot button{text-decoration:underline;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--paper);color:var(--ink);padding:10px 16px;border-radius:999px;font-weight:700;z-index:40;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:calc(100% - 32px);text-align:center}
+.reward{position:fixed;inset:0;z-index:50;background:rgba(6,28,17,.82);display:flex;align-items:center;justify-content:center;padding:max(20px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.reward-card{background:var(--pink);color:var(--pink-ink);border-radius:26px;max-width:400px;width:100%;overflow:hidden;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.reward-card .checker{height:28px;background-size:28px 28px;background-position:0 0,14px 14px}
+.reward-in{padding:22px 22px 24px;display:flex;flex-direction:column;gap:14px;align-items:center}
+.reward-in .s{font-family:var(--f-script);font-size:40px;line-height:.9}
+.reward-in h2{margin:0;font-family:var(--f-logo);font-weight:400;font-size:44px;line-height:.95;letter-spacing:.01em}
+.reward-in blockquote{margin:6px 0 0;font-family:var(--f-label);font-size:30px;line-height:1.05;letter-spacing:.02em}
+.reward-in cite{font-style:normal;font-weight:700;font-size:13px}
+.reward-in p{margin:0;font-size:14px;line-height:1.45;max-width:32ch}
+.reward-in .btn{width:100%}
+@media (prefers-reduced-motion:no-preference){.reward-card{animation:pop .35s cubic-bezier(.2,1.4,.4,1)}@keyframes pop{from{transform:scale(.85);opacity:0}}}
+.today{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;border-top:1px solid var(--green-3);border-bottom:1px solid var(--green-3);padding:16px 0}
+.eyebrow-p{font-family:var(--f-script);color:var(--pink);font-size:30px;line-height:1}
+.today h1{margin:0;font-family:var(--f-logo);font-weight:400;font-size:44px;line-height:.95;color:var(--pink);letter-spacing:.01em;text-wrap:balance}
+.muscles{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.muscles span{border:1.5px solid var(--pink);color:var(--pink);border-radius:999px;padding:3px 12px;font-family:var(--f-label);font-size:17px;letter-spacing:.04em}
+.today p{margin:0;font-size:14px;color:var(--muted);max-width:38ch}
+.amrap-info{margin:0;font-size:14px;color:var(--paper);border:1.5px dashed var(--pink);border-radius:14px;padding:12px 14px}
+.amrap{background:var(--paper);color:var(--ink);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.amrap-timer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.amrap-timer .t{font-family:var(--f-logo);font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.amrap-timer .btn{padding:12px 16px;font-size:14px}
+.amrap-in{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.amrap-in label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#3d5a49;justify-content:flex-end}
+.amrap-in .field input{padding-right:24px}
+.amrap-in .field span{right:9px}
+.confirm{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.ex-top .chev{transition:none}}
+</style>
+
+<div class="checker" aria-hidden="true"></div>
+<main class="wrap" id="app"></main>
+<div class="checker" aria-hidden="true"></div>
+
+<script>
+// ===== Plan cargado por Nahuel =====
+const PLAN = {
+  id:"nadia-martes-empuje",
+  alumna:"Nadia",
+  coach:"Nahuel",
+  dia:"Martes",
+  titulo:"Empuje + Tríceps",
+  musculos:["Pecho","Hombros","Tríceps","Zona media"],
+  objetivo:"Trabajamos los músculos que usamos para empujar: pecho, hombros y tríceps. Primero preparamos hombros y columna, después vamos a la fuerza en máquinas y cerramos con un bloque corto e intenso para subir pulsaciones.",
+  bloques:[
+    {nombre:"Bloque 1",sub:"Movilidad y activación",carga:false,items:[
+      {n:"Rotación torácica en cuadrupedia",s:2,u:"vueltas",r:"8 rep por lado",v:"https://www.youtube.com/watch?v=wcKyqAMqueQ"},
+      {n:"Scapular push-up",s:2,u:"vueltas",r:"10-12 rep",v:"https://youtube.com/shorts/ZfZnirOwTcU"},
+      {n:"Círculos de hombros controlados",s:2,u:"vueltas",r:"10 por sentido",v:"https://www.youtube.com/watch?v=vOsm1Sdgxvw"},
+      {n:"Dead bug",s:2,u:"vueltas",r:"10 rep por lado",v:"https://youtu.be/huGj4aBk9C4"},
+      {n:"Plancha con toque de hombros",s:2,u:"vueltas",r:"30 seg",v:"https://youtube.com/shorts/6MG500ll-Gc"}
+    ]},
+    {nombre:"Bloque 2",sub:"Fuerza · anotá la carga de cada serie",carga:true,items:[
+      {n:"Press de pecho en máquina",s:3,u:"series",r:"8-10 rep",reps:10,v:"https://www.youtube.com/shorts/9Ark9S11uXw"},
+      {n:"Press de hombros en máquina",s:3,u:"series",r:"8-10 rep",reps:10,v:"https://www.youtube.com/shorts/X7pe4Laknis"},
+      {n:"Aperturas de pecho en máquina",s:2,u:"series",r:"12-15 rep",reps:15,v:"https://www.youtube.com/shorts/dd9xo-_ahCg"},
+      {n:"Elevaciones laterales",s:3,u:"series",r:"12-15 rep",reps:15,v:"https://www.youtube.com/shorts/qS_chxw_nU0"},
+      {n:"Extensión de tríceps en polea",s:3,u:"series",r:"10-12 rep",reps:12,v:"https://www.youtube.com/shorts/txowR7HmzH4"},
+      {n:"Extensión de tríceps sobre cabeza",s:2,u:"series",r:"12-15 rep",reps:15,v:"https://www.youtube.com/shorts/GdBPBEKASZc"}
+    ]},
+    {nombre:"Bloque 3",sub:"AMRAP 6 minutos",carga:false,amrap:{min:6,texto:"AMRAP significa “la mayor cantidad de vueltas posibles”. Arrancá el reloj de 6 minutos que está abajo y hacé los 3 ejercicios en orden, uno detrás del otro, todas las veces que puedas hasta que suene. Descansá solo lo justo. Al final anotá cuántas vueltas completaste."},items:[
+      {n:"Wall balls",s:0,u:"",r:"10 rep",v:"https://www.youtube.com/watch?v=RxpEjaQ8AR0"},
+      {n:"Sprawl to press",s:0,u:"",r:"8 rep · con el balón, al subir lo llevás por encima de la cabeza",v:"https://youtu.be/wX8W7pa-hvQ"},
+      {n:"Flexiones de brazos",s:0,u:"",r:"6 rep · con rodillas apoyadas si hace falta",v:"https://www.youtube.com/shorts/ZeDUsPI8Ufc"}
+    ]}
+  ]
+};
+const QUOTES=[
+  ["Ninguna gran cosa se crea de repente.","Epicteto","Ni siquiera un racimo de uvas o un higo. Primero florece, después da fruto, después madura. Tu fuerza crece igual: sesión a sesión."],
+  ["Las dificultades fortalecen la mente, como el trabajo lo hace con el cuerpo.","Séneca","Para los estoicos el esfuerzo no era castigo, era entrenamiento del carácter. Hoy entrenaste los dos."],
+  ["Lo que se interpone en el camino se convierte en el camino.","Marco Aurelio","La serie que cuesta es la que te cambia. Ese es el camino."],
+  ["No es porque las cosas son difíciles que no nos atrevemos; es porque no nos atrevemos que son difíciles.","Séneca","Hoy te animaste. Eso ya es virtud en acción."]
+];
+let reward=null;
+
+// ===== Estado (se guarda en el celular de la alumna) =====
+const KEY="ponos:"+PLAN.id+":v2";
+function blank(){return {open:null,feel:"",comment:"",am:{v:"",r:"",kg:""},ex:PLAN.bloques.map(b=>b.items.map(it=>Array.from({length:it.s},()=>({kg:"",reps:b.carga?String(it.reps):"",done:false}))))}}
+let ST,HIST={};
+try{ST=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+try{HIST=JSON.parse(localStorage.getItem(KEY+":hist"))||{}}catch(e){HIST={}}
+if(!ST||!ST.ex||ST.ex.length!==PLAN.bloques.length)ST=blank();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ST));localStorage.setItem(KEY+":hist",JSON.stringify(HIST))}catch(e){}};
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+if(!ST.am)ST.am={v:"",r:"",kg:""};
+const exDone=(b,i)=>PLAN.bloques[b].amrap?ST.am.v!=="":ST.ex[b][i].every(x=>x.done);
+let amEnd=null,amT=null;
+const total=PLAN.bloques.reduce((a,b)=>a+b.items.length,0);
+const doneCount=()=>PLAN.bloques.reduce((a,b,bi)=>a+b.items.filter((_,i)=>exDone(bi,i)).length,0);
+const PLAY='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
+const CHECK='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const CHEV='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+let confirmReset=false;
+
+function render(){
+  const d=doneCount(),C=2*Math.PI*24,q=QUOTES[new Date().getDate()%QUOTES.length];
+  $("#app").innerHTML=`
+  <header class="logo" aria-label="Method Ponos"><span class="s">Method</span><span class="b">PONOS</span></header>
+  <div class="tag"><span>ENTRENÁ<br>CON PROPÓSITO.</span><span>VIVÍ EL<br>MÉTODO PONOS.</span></div>
+  <section class="today"><span class="eyebrow-p">Hoy nos toca</span><h1>${esc(PLAN.titulo.toUpperCase())}</h1>
+    <div class="muscles">${PLAN.musculos.map(m=>`<span>${esc(m)}</span>`).join("")}</div>
+    <p>${esc(PLAN.objetivo)}</p></section>
+  <section class="summary">
+    <svg viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="var(--green-3)" stroke-width="5"/><circle cx="29" cy="29" r="24" fill="none" stroke="var(--pink)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C*d/total} ${C}" transform="rotate(-90 29 29)"/><text x="29" y="35" text-anchor="middle" fill="var(--paper)" font-family="Bebas Neue, sans-serif" font-size="19">${d}/${total}</text></svg>
+    <div><b>${d===total?"¡Entrenamiento completo!":d?"Vas muy bien, seguí así":"Hola "+esc(PLAN.alumna)+", arrancamos"}</b>
+    <p>Tocá cada ejercicio para ver el video y marcar las series. En el bloque 2 anotá con qué peso lo hiciste y en el 3 cuántas vueltas completaste.</p></div>
+  </section>
+  ${PLAN.bloques.map((b,bi)=>`<section class="block"><h2>${esc(b.nombre)} <small>${esc(b.sub)}</small></h2>
+    ${b.amrap?`<p class="amrap-info">${esc(b.amrap.texto)}</p>`:""}
+    ${b.items.map((it,i)=>exCard(b,bi,it,i)).join("")}
+    ${b.amrap?amrapCard(b):""}</section>`).join("")}
+  <section class="finish" id="fin">
+    <h2>¿Terminaste?</h2>
+    <div class="feel" role="group" aria-label="¿Cómo lo sentiste?">${[["facil","Fácil"],["justa","Justo"],["dura","Duro"]].map(([k,l])=>`<button data-feel="${k}" aria-pressed="${ST.feel===k}">${l}</button>`).join("")}</div>
+    <textarea id="comment" rows="2" placeholder="Comentario (opcional). Ej.: me molestó el hombro en el press">${esc(ST.comment)}</textarea>
+    ${SILENT?`<button class="btn btn-dark" id="wa">Guardar sesión</button>`:`<a class="btn btn-dark" id="wa" href="${waLink()}" target="_blank" rel="noopener">Guardar sesión</a>`}
+  </section>
+  ${reward!==null?rewardCard(QUOTES[reward]):""}`;
+  bind();
+}
+function exCard(b,bi,it,i){
+  const open=ST.open===bi+"-"+i, sets=ST.ex[bi][i], done=exDone(bi,i);
+  const h=HIST[bi+"-"+i];
+  return `<article class="ex ${done?"done":""} ${open?"open":""}">
+    <button class="ex-top" data-open="${bi}-${i}" aria-expanded="${open}">
+      <span class="tick">${CHECK}</span>
+      <span class="nm"><b>${esc(it.n.toUpperCase())}</b><span>${it.s?it.s+" "+it.u+" · ":""}${esc(it.r)}</span></span>
+      <span class="chev">${CHEV}</span></button>
+    ${open?`<div class="ex-body">
+      <a class="video" href="${it.v}" target="_blank" rel="noopener">${PLAY} Ver video del ejercicio</a>
+      ${b.carga&&h?`<div class="last">Última vez: <b>${esc(h)}</b></div>`:""}
+      <div class="sets">${sets.map((s,k)=>b.carga?`
+        <div class="set"><span class="n">${k+1}</span>
+          <div class="field"><input id="kg-${bi}-${i}-${k}" inputmode="decimal" placeholder="—" value="${esc(s.kg)}" data-kg="${bi}-${i}-${k}" aria-label="Kilos serie ${k+1}"><span>kg</span></div>
+          <div class="field"><input id="rp-${bi}-${i}-${k}" inputmode="numeric" value="${esc(s.reps)}" data-reps="${bi}-${i}-${k}" aria-label="Repeticiones serie ${k+1}"><span>rep</span></div>
+          <button class="chk" data-done="${bi}-${i}-${k}" aria-pressed="${s.done}" aria-label="Serie ${k+1} hecha">${CHECK}</button></div>`
+        :`<div class="set simple"><span class="lbl">${it.u==="vueltas"?"Vuelta":"Serie"} ${k+1} · ${esc(it.r)}</span>
+          <button class="chk" data-done="${bi}-${i}-${k}" aria-pressed="${s.done}" aria-label="${it.u==="vueltas"?"Vuelta":"Serie"} ${k+1} hecha">${CHECK}</button></div>`).join("")}</div>
+      ${b.carga?`<p class="hint">Si la máquina tiene placas, poné el número que marca. Las reps vienen con el máximo del rango, cambialas si hiciste menos.</p>`:""}
+    </div>`:""}
+  </article>`;
+}
+function fmtT(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function amrapCard(b){const left=amEnd?Math.max(0,Math.ceil((amEnd-Date.now())/1000)):b.amrap.min*60;const h=HIST.amrap;
+  return `<div class="amrap"><div class="amrap-timer"><span class="t" id="amt">${amEnd&&left===0?"¡TIEMPO!":fmtT(left)}</span>
+    <button class="btn btn-dark" data-amtimer>${amEnd?"Reiniciar reloj":"Empezar reloj de "+b.amrap.min+" min"}</button></div>
+    ${h?`<div class="last">Última vez: <b>${esc(h)}</b></div>`:""}
+    <div class="amrap-in"><label>Vueltas completas<div class="field"><input id="am-v" inputmode="numeric" placeholder="—" value="${esc(ST.am.v)}" data-am="v"></div></label>
+    <label>Reps de la vuelta incompleta<div class="field"><input id="am-r" inputmode="numeric" placeholder="0" value="${esc(ST.am.r)}" data-am="r"></div></label>
+    <label>Peso del balón<div class="field"><input id="am-kg" inputmode="decimal" placeholder="—" value="${esc(ST.am.kg)}" data-am="kg"><span>kg</span></div></label></div></div>`}
+function rewardCard(q){return `<div class="reward" role="dialog" aria-modal="true" aria-label="Sesión guardada"><div class="reward-card">
+  <div class="checker" aria-hidden="true"></div>
+  <div class="reward-in"><span class="s">Sesión guardada</span><h2>BIEN HECHO, ${esc(PLAN.alumna.toUpperCase())}</h2>
+  <blockquote>“${q[0]}”</blockquote><cite>${q[1]}</cite>
+  <p>${q[2]}</p>
+  <p style="font-size:12px;opacity:.8">Ponos era el espíritu griego del esfuerzo. En el Método Ponos el esfuerzo es el camino hacia una vida plena.</p>
+  <button class="btn btn-dark" data-close-reward>Cerrar</button></div>
+  <div class="checker" aria-hidden="true"></div></div></div>`}
+function summary(){
+  const L=[`*Method Ponos* · ${PLAN.alumna} · ${PLAN.dia} ${PLAN.titulo}`,`Completé ${doneCount()}/${total} ejercicios`];
+  PLAN.bloques.forEach((b,bi)=>{
+    const lines=[];
+    if(b.amrap){L.push("",`*${b.nombre} · AMRAP ${b.amrap.min} min*`,`• ${b.items.map(it=>it.r.split(" · ")[0]+" "+it.n.toLowerCase()).join(" + ")}`,ST.am.v!==""?`• Resultado: ${ST.am.v} vueltas${ST.am.r&&ST.am.r!=="0"?" + "+ST.am.r+" reps":""}${ST.am.kg?" · balón "+ST.am.kg+" kg":""}`:"• No lo hice");return}
+    b.items.forEach((it,i)=>{const sets=ST.ex[bi][i];const d=sets.filter(s=>s.done);
+      if(b.carga){if(d.length)lines.push(`• ${it.n}: ${d.map(s=>`${s.kg||"?"}kg×${s.reps||"?"}`).join(", ")}`);else lines.push(`• ${it.n}: no lo hice`)}
+      else lines.push(`• ${it.n}: ${d.length}/${sets.length} ${it.u}`)});
+    L.push("",`*${b.nombre}*`,...lines);
+  });
+  if(ST.feel)L.push("",`Sensación: ${{facil:"fácil",justa:"justo",dura:"duro"}[ST.feel]}`);
+  if(ST.comment.trim())L.push(`Comentario: ${ST.comment.trim()}`);
+  return L.join("\n");
+}
+const FORM="https://docs.google.com/forms/d/e/1FAIpQLSeCqivrPxoOgy9pV0-Zq3J_EVLINRxG61a2O6bIam2QZ3RP1w/formResponse";
+function waLink(){return FORM+"?entry.132107571="+encodeURIComponent(PLAN.alumna+" · "+PLAN.dia+" "+PLAN.titulo)+"&entry.852250639="+encodeURIComponent(summary())+"&submit=Submit"}
+// En un hosting propio (Netlify, GitHub Pages) se envía en segundo plano, sin abrir nada
+const SILENT=/netlify\.app$|github\.io$|pages\.dev$|vercel\.app$|metodoponos/.test(location.hostname);
+function sendSilent(){const body=new URLSearchParams();body.append("entry.132107571",PLAN.alumna+" · "+PLAN.dia+" "+PLAN.titulo);body.append("entry.852250639",summary());
+  try{fetch(FORM,{method:"POST",mode:"no-cors",body}).catch(()=>{})}catch(e){}}
+function finishSession(){keepHistory();ST=blank();save();reward=Math.floor(Math.random()*QUOTES.length);window.scrollTo(0,0);setTimeout(render,150)}
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+function keepHistory(){
+  if(ST.am&&ST.am.v!=="")HIST.amrap=`${ST.am.v} vueltas${ST.am.r&&ST.am.r!=="0"?" + "+ST.am.r+" reps":""}${ST.am.kg?" · balón "+ST.am.kg+" kg":""}`;
+  PLAN.bloques.forEach((b,bi)=>{if(!b.carga)return;b.items.forEach((it,i)=>{const d=ST.ex[bi][i].filter(s=>s.done&&s.kg);if(d.length)HIST[bi+"-"+i]=d.map(s=>`${s.kg} kg × ${s.reps}`).join(" · ")})});
+}
+function bind(){
+  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{ST.open=ST.open===b.dataset.open?null:b.dataset.open;save();render()});
+  const idx=s=>s.split("-").map(Number);
+  document.querySelectorAll("[data-kg]").forEach(inp=>inp.oninput=()=>{const [b,i,k]=idx(inp.dataset.kg);const v=inp.value.replace(",",".");ST.ex[b][i][k].kg=v;
+    for(let j=k+1;j<ST.ex[b][i].length;j++){const s=ST.ex[b][i][j];if(!s.done&&!s.touched){s.kg=v;const o=$(`#kg-${b}-${i}-${j}`);if(o)o.value=v}}save();refreshWa()});
+  document.querySelectorAll("[data-reps]").forEach(inp=>inp.oninput=()=>{const [b,i,k]=idx(inp.dataset.reps);ST.ex[b][i][k].reps=inp.value;save();refreshWa()});
+  document.querySelectorAll("[data-kg]").forEach(inp=>inp.onchange=()=>{const [b,i,k]=idx(inp.dataset.kg);ST.ex[b][i][k].touched=true;save()});
+  document.querySelectorAll("[data-done]").forEach(btn=>btn.onclick=()=>{const [b,i,k]=idx(btn.dataset.done);const s=ST.ex[b][i][k];s.done=!s.done;
+    if(exDone(b,i)){const nb=PLAN.bloques[b].items[i+1]?b+"-"+(i+1):PLAN.bloques[b+1]?(b+1)+"-0":null;ST.open=nb;keepHistory();save();render();
+      const el=nb&&document.querySelector(`[data-open="${nb}"]`);if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+      else if(!nb)$("#fin").scrollIntoView({block:"start"});}
+    else{save();render()}});
+  document.querySelectorAll("[data-feel]").forEach(b=>b.onclick=()=>{ST.feel=b.dataset.feel;save();render()});
+  document.querySelectorAll("[data-am]").forEach(inp=>{inp.oninput=()=>{ST.am[inp.dataset.am]=inp.value.replace(",",".");save();refreshWa()};inp.onchange=()=>setTimeout(()=>{const a=document.activeElement;if(!(a&&a.dataset&&a.dataset.am))render()},0)});
+  const tb=$("[data-amtimer]");if(tb)tb.onclick=()=>{const b=PLAN.bloques.find(x=>x.amrap);amEnd=Date.now()+b.amrap.min*60000;clearInterval(amT);
+    amT=setInterval(()=>{const left=Math.max(0,Math.ceil((amEnd-Date.now())/1000));const el=$("#amt");if(el)el.textContent=left?fmtT(left):"¡TIEMPO!";if(!left){clearInterval(amT);try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}},250);render()};
+  const c=$("#comment");c.oninput=()=>{ST.comment=c.value;save();refreshWa()};
+  $("#wa").onclick=()=>{if(SILENT)sendSilent();finishSession()};
+  const cr=$("[data-close-reward]");if(cr)cr.onclick=()=>{reward=null;render()};
+}
+function refreshWa(){const a=$("#wa");if(a&&a.tagName==="A")a.href=waLink()}
+render();
+</script>
+
+</body></html>
